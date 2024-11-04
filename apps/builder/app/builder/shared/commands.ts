@@ -27,6 +27,7 @@ import {
   toggleActiveSidebarPanel,
 } from "./nano-states";
 import { toast } from "@webstudio-is/design-system";
+import { openCommandPanel } from "../features/command-panel";
 
 const makeBreakpointCommand = <CommandName extends string>(
   name: CommandName,
@@ -294,6 +295,12 @@ export const { emitCommand, subscribeCommands } = createCommandsEmitter({
       handler: () => {
         serverSyncStore.redo();
       },
+    },
+
+    {
+      name: "search",
+      defaultHotkeys: ["meta+k", "ctrl+k"],
+      handler: openCommandPanel,
     },
   ],
 });
