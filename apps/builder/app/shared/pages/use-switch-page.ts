@@ -8,6 +8,8 @@ import {
   $project,
   $selectedPageHash,
   $selectedInstanceSelector,
+  $builderMode,
+  isBuilderMode,
   $isPreviewMode,
 } from "~/shared/nano-states";
 import { builderPath } from "~/shared/router-utils";
@@ -40,7 +42,9 @@ const setPageStateFromUrl = () => {
   const pageId = searchParams.get("pageId") ?? pages.homePage.id;
   const pageHash = searchParams.get("pageHash") ?? undefined;
 
-  $isPreviewMode.set(searchParams.get("mode") === "preview");
+  const mode = searchParams.get("mode");
+
+  $builderMode.set(isBuilderMode(mode) ? mode : "design");
 
   switchPage(pageId, pageHash);
 };
